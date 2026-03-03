@@ -92,16 +92,28 @@ body {
   color: #888;
 }
 
+/* SIDEBAR LINKS */
 .sidebar a {
   display: block;
-  padding: 10px 0;
+  padding: 12px 0;
   text-decoration: none;
   color: #ccc;
-  transition: 0.2s;
+  transition: all 0.25s ease;
+  border-radius: 6px;
+  padding-left: 10px;
 }
 
+/* HOVER GLOW */
 .sidebar a:hover {
-  color: white;
+  color: #ffffff;
+  background: rgba(255, 42, 42, 0.08);
+  box-shadow: 0 0 12px rgba(255, 42, 42, 0.4);
+}
+
+/* ACTIVE CLICK EFFECT */
+.sidebar a:active {
+  box-shadow: 0 0 18px rgba(255, 42, 42, 0.7);
+  transform: scale(0.98);
 }
 
 /* OVERLAY */
