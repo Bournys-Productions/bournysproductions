@@ -6,21 +6,19 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #0d0d12;
+  background: #0e0e13;
   color: white;
-  overflow-x: hidden;
 }
 
 /* LOADER */
 #loader {
   position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #0d0d12;
+  inset: 0;
+  background: #0e0e13;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 5000;
 }
 
 .spinner {
@@ -41,19 +39,34 @@ body {
   display: flex;
   align-items: center;
   background: #111;
-  padding: 15px;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
 }
 
 .logo {
-  margin-left: 10px;
+  margin-left: 15px;
+  font-size: 18px;
 }
 
+/* BURGER */
 .burger {
-  font-size: 24px;
-  cursor: pointer;
+  width: 30px;
+  height: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: none;
   border: none;
-  color: white;
+  cursor: pointer;
+}
+
+.burger span {
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: 0.3s ease;
 }
 
 /* SIDEBAR */
@@ -63,9 +76,10 @@ body {
   left: -260px;
   width: 260px;
   height: 100%;
-  background: #14141a;
+  background: #15151c;
   padding: 20px;
   transition: 0.3s ease;
+  z-index: 3000;
 }
 
 .sidebar.open {
@@ -73,7 +87,7 @@ body {
 }
 
 .sidebar h3 {
-  margin-top: 20px;
+  margin-top: 25px;
   font-size: 12px;
   color: #888;
 }
@@ -81,23 +95,38 @@ body {
 .sidebar a {
   display: block;
   padding: 10px 0;
-  color: #ccc;
   text-decoration: none;
-  transition: 0.3s;
+  color: #ccc;
+  transition: 0.2s;
 }
 
 .sidebar a:hover {
   color: white;
 }
 
+/* OVERLAY */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 2500;
+}
+
+#overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* LOGIN BUTTON */
 .login-btn {
-  display: block;
-  padding: 10px;
   background: #ff2a2a;
-  color: white;
-  text-align: center;
+  padding: 10px;
   border-radius: 6px;
+  text-align: center;
+  color: white;
   margin-bottom: 15px;
 }
 
@@ -108,36 +137,41 @@ body {
 /* HERO */
 .hero {
   text-align: center;
-  padding: 100px 20px 50px;
+  padding: 100px 20px 60px;
 }
 
 .hero h2 {
-  font-size: 42px;
+  font-size: 40px;
+}
+
+.hero p {
+  color: #aaa;
+  margin-top: 10px;
 }
 
 /* PRODUCTS */
-.products-section {
-  padding: 40px;
+.products {
+  padding: 40px 20px;
 }
 
 .section-title {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 25px;
 }
 
 .product-card {
   background: #1b1b22;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  padding-bottom: 15px;
-  text-align: center;
   transition: 0.3s ease;
+  text-align: center;
+  padding-bottom: 20px;
 }
 
 .product-card:hover {
@@ -147,7 +181,7 @@ body {
 
 .image-placeholder {
   height: 180px;
-  background: linear-gradient(45deg, #222, #333);
+  background: linear-gradient(135deg, #222, #333);
 }
 
 .product-card h3 {
@@ -157,16 +191,17 @@ body {
 .product-card p {
   font-size: 14px;
   color: #aaa;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .buy-btn {
   background: #ff2a2a;
   border: none;
-  padding: 8px 14px;
-  color: white;
+  padding: 8px 16px;
   border-radius: 6px;
+  color: white;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .buy-btn:hover {
@@ -176,6 +211,6 @@ body {
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .hero h2 {
-    font-size: 30px;
+    font-size: 28px;
   }
 }
