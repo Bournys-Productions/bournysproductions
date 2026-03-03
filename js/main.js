@@ -1,16 +1,12 @@
-// BURGER MENU
-const burger = document.getElementById('burger');
-const sidebar = document.getElementById('sidebar');
-const links = document.querySelectorAll('.nav-link');
-const indicator = document.getElementById('indicator');
-
-burger.addEventListener('click', () => {
-  sidebar.classList.toggle('open');
+// Loader
+window.addEventListener("load", () => {
+  document.getElementById("loader").style.display = "none";
 });
 
-// Slider Indicator
-links.forEach(link => {
-  link.addEventListener('click', function () {
-    indicator.style.top = this.offsetTop + "px";
-  });
+// Sidebar toggle
+const burger = document.getElementById("burger");
+const sidebar = document.getElementById("sidebar");
+
+burger.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
 });
