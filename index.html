@@ -8,14 +8,10 @@
 
   <title>Bournys Productions</title>
 
-  <link rel="icon" href="assets/favicon.png" type="image/png">
-
-  <!-- Animation Library -->
-  <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+  <link rel="icon" href="assets/favicon.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 <!-- Loading Screen -->
@@ -25,12 +21,16 @@
 
 <!-- Header -->
 <header class="topbar">
-  <button class="burger" id="burger">☰</button>
+  <button id="burger" class="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   <h1 class="logo">BOURNYS PRODUCTIONS</h1>
 </header>
 
 <!-- Sidebar -->
-<aside class="sidebar" id="sidebar">
+<aside id="sidebar" class="sidebar">
   <a href="#" class="login-btn">Login / Create Account</a>
 
   <nav>
@@ -43,39 +43,41 @@
     <a href="#" class="nav-link">Bundles</a>
 
     <h3>SUPPORT</h3>
-    <a href="#">Contact Us</a>
-    <a href="#">Support Tickets</a>
+    <a href="#" class="nav-link">Contact Us</a>
+    <a href="#" class="nav-link">Support Tickets</a>
   </nav>
 </aside>
 
-<!-- Main Content -->
+<div id="overlay"></div>
+
+<!-- Main -->
 <main>
 
-<section class="hero animate__animated animate__fadeIn">
+<section class="hero">
   <h2>Bournys Productions</h2>
   <p>Premium Emergency Vehicle Development</p>
 </section>
 
-<section class="products-section">
+<section class="products">
   <h2 class="section-title">Featured Products</h2>
 
   <div class="product-grid">
 
-    <div class="product-card animate__animated animate__fadeInUp">
+    <div class="product-card">
       <div class="image-placeholder"></div>
       <h3>Product One</h3>
       <p>High quality emergency vehicle pack.</p>
       <button class="buy-btn">View</button>
     </div>
 
-    <div class="product-card animate__animated animate__fadeInUp">
+    <div class="product-card">
       <div class="image-placeholder"></div>
       <h3>Product Two</h3>
       <p>Realistic and optimized vehicles.</p>
       <button class="buy-btn">View</button>
     </div>
 
-    <div class="product-card animate__animated animate__fadeInUp">
+    <div class="product-card">
       <div class="image-placeholder"></div>
       <h3>Product Three</h3>
       <p>Advanced response systems.</p>
