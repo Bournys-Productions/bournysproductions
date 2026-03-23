@@ -4,197 +4,67 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bournys Productions</title>
-  <meta name="description" content="Premium emergency vehicle development for Roblox communities and projects." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- NAVBAR -->
-  <header class="site-header">
-    <div class="nav-container">
-      <a href="index.html" class="brand">
-        <span class="brand-icon">BP</span>
-        <span class="brand-text">BOURNYS PRODUCTIONS</span>
-      </a>
+  <canvas id="particle-canvas"></canvas>
 
-      <nav class="desktop-nav">
-        <a href="index.html">Home</a>
-        <a href="Police-Vehicles.html">Vehicles</a>
-        <a href="SBA-BB.html">Products</a>
-        <a href="contact-us.html">Contact</a>
-        <a href="login.html" class="nav-btn">Login</a>
-      </nav>
-
-      <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-
-    <nav class="mobile-nav" id="mobileNav">
-      <a href="index.html">Home</a>
-      <a href="Police-Vehicles.html">Vehicles</a>
-      <a href="SBA-BB.html">Products</a>
-      <a href="contact-us.html">Contact</a>
-      <a href="login.html">Login</a>
-    </nav>
+  <header class="topbar">
+    <button class="menu-btn" id="menuToggle" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <h1 class="topbar-title">BOURNYS PRODUCTIONS</h1>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-glow hero-glow-1"></div>
-    <div class="hero-glow hero-glow-2"></div>
+  <nav class="sidebar" id="sidebar">
+    <a href="index.html">Home</a>
+    <a href="Police-Vehicles.html">Police Vehicles</a>
+    <a href="SBA-BB.html">Products</a>
+    <a href="contact-us.html">Contact Us</a>
+    <a href="login.html">Login</a>
+  </nav>
 
-    <div class="hero-content">
-      <div class="hero-badge">Premium Emergency Vehicle Development</div>
-      <h1>High-quality emergency vehicles built for serious projects</h1>
-      <p>
-        Realistic, clean, and performance-friendly vehicle packs designed for
-        Roblox roleplay communities, developers, and professional server setups.
-      </p>
+  <main class="page">
+    <section class="hero-simple">
+      <h2>Bournys Productions</h2>
+      <p>Premium Emergency Vehicle Development</p>
+    </section>
 
-      <div class="hero-buttons">
-        <a href="#featured-products" class="btn btn-primary">View Products</a>
-        <a href="contact-us.html" class="btn btn-secondary">Contact Us</a>
-      </div>
+    <section class="section-title">
+      <h3>Featured Products</h3>
+    </section>
 
-      <div class="hero-stats">
-        <div class="stat-box">
-          <h3>Optimized</h3>
-          <p>Made to run cleanly in game</p>
-        </div>
-        <div class="stat-box">
-          <h3>Realistic</h3>
-          <p>Built for a premium look and feel</p>
-        </div>
-        <div class="stat-box">
-          <h3>Custom</h3>
-          <p>Designed for serious communities</p>
+    <section class="product-grid">
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-content">
+          <h4>Product One</h4>
+          <p>High quality emergency vehicle pack.</p>
+          <a href="Police-Vehicles.html" class="view-btn">View</a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- FEATURED PRODUCTS -->
-  <section class="section" id="featured-products">
-    <div class="section-heading">
-      <span class="section-tag">FEATURED</span>
-      <h2>Featured Products</h2>
-      <p>Browse some of our highlighted packs and systems.</p>
-    </div>
-
-    <div class="product-grid">
-      <article class="product-card">
-        <div class="product-image product-image-1"></div>
-        <div class="product-body">
-          <span class="product-label">Vehicle Pack</span>
-          <h3>Police Vehicle Pack</h3>
-          <p>
-            Realistic emergency vehicles with strong detail, clean setups,
-            and polished presentation for roleplay servers.
-          </p>
-          <a href="Police-Vehicles.html" class="btn btn-primary small-btn">View Pack</a>
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-content">
+          <h4>Product Two</h4>
+          <p>Realistic and optimized vehicles.</p>
+          <a href="SBA-BB.html" class="view-btn">View</a>
         </div>
-      </article>
+      </div>
 
-      <article class="product-card">
-        <div class="product-image product-image-2"></div>
-        <div class="product-body">
-          <span class="product-label">System</span>
-          <h3>Response Systems</h3>
-          <p>
-            Advanced systems built to improve realism, immersion, and quality
-            across your emergency gameplay experience.
-          </p>
-          <a href="SBA-BB.html" class="btn btn-primary small-btn">View Product</a>
+      <div class="product-card">
+        <div class="product-image"></div>
+        <div class="product-content">
+          <h4>Product Three</h4>
+          <p>Advanced response systems.</p>
+          <a href="contact-us.html" class="view-btn">View</a>
         </div>
-      </article>
-
-      <article class="product-card">
-        <div class="product-image product-image-3"></div>
-        <div class="product-body">
-          <span class="product-label">Custom Work</span>
-          <h3>Custom Development</h3>
-          <p>
-            Need something made for your server? We can help with polished,
-            branded, and tailored emergency vehicle content.
-          </p>
-          <a href="contact-us.html" class="btn btn-primary small-btn">Request Work</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- WHY CHOOSE US -->
-  <section class="section alt-section">
-    <div class="section-heading">
-      <span class="section-tag">WHY US</span>
-      <h2>Why Choose Bournys Productions</h2>
-      <p>Built to look premium and feel reliable.</p>
-    </div>
-
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="info-icon">01</div>
-        <h3>Premium Design</h3>
-        <p>Modern visuals, sharp details, and a polished overall finish.</p>
       </div>
-
-      <div class="info-card">
-        <div class="info-icon">02</div>
-        <h3>Optimized Assets</h3>
-        <p>Cleaner performance so your project stays smoother in use.</p>
-      </div>
-
-      <div class="info-card">
-        <div class="info-icon">03</div>
-        <h3>Serious Quality</h3>
-        <p>Built for communities that want more than basic templates.</p>
-      </div>
-
-      <div class="info-card">
-        <div class="info-icon">04</div>
-        <h3>Custom Possibilities</h3>
-        <p>Flexible enough for branded servers and unique requirements.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section">
-    <div class="cta-box">
-      <div class="cta-text">
-        <span class="section-tag">GET STARTED</span>
-        <h2>Want to improve your project’s vehicle quality?</h2>
-        <p>
-          Explore our products or get in touch to discuss custom work,
-          commissions, or premium emergency vehicle content.
-        </p>
-      </div>
-
-      <div class="cta-buttons">
-        <a href="Police-Vehicles.html" class="btn btn-primary">Browse Vehicles</a>
-        <a href="contact-us.html" class="btn btn-secondary">Contact Now</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div>
-        <h3>Bournys Productions</h3>
-        <p>Premium emergency vehicle development.</p>
-      </div>
-
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="Police-Vehicles.html">Vehicles</a>
-        <a href="SBA-BB.html">Products</a>
-        <a href="contact-us.html">Contact</a>
-      </div>
-    </div>
-  </footer>
+    </section>
+  </main>
 
   <script src="js/main.js"></script>
 </body>
