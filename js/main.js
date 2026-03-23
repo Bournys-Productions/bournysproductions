@@ -1,24 +1,38 @@
-// Remove /index.html from URL
-if (window.location.pathname.endsWith("index.html")) {
-  const cleanURL = window.location.pathname.replace("index.html", "");
-  window.history.replaceState(null, "", cleanURL);
-}
-
 const menuToggle = document.getElementById("menuToggle");
 const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-if (menuToggle && sidebar) {
-  menuToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("show");
-  });
+function openSidebar() {
+  sidebar.classList.add("open");
+  sidebarOverlay.classList.add("show");
+  menuToggle.classList.add("active");
 }
 
-// Particle / bubble effect
+function closeSidebar() {
+  sidebar.classList.remove("open");
+  sidebarOverlay.classList.remove("show");
+  menuToggle.classList.remove("active");
+}
+
+menuToggle.addEventListener("click", () => {
+  if (sidebar.classList.contains("open")) {
+    closeSidebar();
+  } else {
+    openSidebar();
+  }
+});
+
+sidebarOverlay.addEventListener("click", closeSidebar);
+
+document.querySelectorAll(".sidebar a").forEach((link) => {
+  link.addEventListener("click", closeSidebar);
+});
+
+/* Particle background */
 const canvas = document.getElementById("particle-canvas");
 const ctx = canvas.getContext("2d");
 
 let particles = [];
-const particleCount = 28;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -27,14 +41,16 @@ function resizeCanvas() {
 
 function createParticles() {
   particles = [];
-  for (let i = 0; i < particleCount; i++) {
+  const count = Math.max(25, Math.floor(window.innerWidth / 35));
+
+  for (let i = 0; i < count; i++) {
     particles.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: Math.random() * 2 + 1.2,
-      dx: (Math.random() - 0.5) * 0.35,
-      dy: (Math.random() - 0.5) * 0.35,
-      opacity: Math.random() * 0.5 + 0.35
+      radius: Math.random() * 3 + 1.5,
+      speedY: Math.random() * 0.45 + 0.15,
+      speedX: (Math.random() - 0.5) * 0.25,
+      alpha: Math.random() * 0.6 + 0.2
     });
   }
 }
@@ -42,17 +58,24 @@ function createParticles() {
 function drawParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let p of particles) {
+  for (const particle of particles) {
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255, 49, 49, ${p.opacity})`;
+    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 40, 40, ${particle.alpha})`;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = "rgba(255, 0, 0, 0.75)";
     ctx.fill();
 
-    p.x += p.dx;
-    p.y += p.dy;
+    particle.y += particle.speedY;
+    particle.x += particle.speedX;
 
-    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    if (particle.y > canvas.height + 10) {
+      particle.y = -10;
+      particle.x = Math.random() * canvas.width;
+    }
+
+    if (particle.x < -10) particle.x = canvas.width + 10;
+    if (particle.x > canvas.width + 10) particle.x = -10;
   }
 
   requestAnimationFrame(drawParticles);
