@@ -1,16 +1,258 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>404 - Not Found</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 | Bournys Productions</title>
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, rgba(255, 40, 40, 0.08), transparent 35%),
+        linear-gradient(180deg, #050816 0%, #03050f 100%);
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .error-wrap {
+      position: relative;
+      z-index: 1;
+      width: min(92%, 700px);
+      padding: 32px 22px;
+      border-radius: 24px;
+      background: rgba(10, 12, 24, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        0 0 40px rgba(255, 50, 50, 0.08);
+      box-sizing: border-box;
+    }
+
+    .error-code {
+      margin: 0;
+      font-size: clamp(4rem, 16vw, 8rem);
+      font-weight: 900;
+      line-height: 0.95;
+      color: #ffffff;
+      text-shadow:
+        0 0 20px rgba(255, 60, 60, 0.25),
+        0 0 45px rgba(255, 60, 60, 0.12);
+    }
+
+    .error-title {
+      margin: 14px 0 10px;
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .error-text {
+      margin: 0 auto 22px;
+      max-width: 520px;
+      font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .error-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .error-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease;
+      box-sizing: border-box;
+    }
+
+    .error-btn.primary {
+      background: linear-gradient(135deg, #ff2f43, #ff4d4d);
+      color: #fff;
+      box-shadow:
+        0 10px 30px rgba(255, 50, 50, 0.28),
+        0 0 20px rgba(255, 50, 50, 0.18);
+    }
+
+    .error-btn.secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .error-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .error-btn.primary:hover {
+      box-shadow:
+        0 14px 35px rgba(255, 50, 50, 0.38),
+        0 0 26px rgba(255, 50, 50, 0.22);
+    }
+
+    .small-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.46);
+      word-break: break-word;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 14px;
+        align-items: center;
+      }
+
+      .error-wrap {
+        padding: 26px 16px;
+        border-radius: 18px;
+      }
+
+      .error-actions {
+        flex-direction: column;
+      }
+
+      .error-btn {
+        width: 100%;
+        min-width: unset;
+      }
+    }
+  </style>
 </head>
-<body style="display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;">
+<body>
+  <canvas id="particle-canvas"></canvas>
 
-<div>
-  <h1>404</h1>
-  <p>This page does not exist.</p>
- <a href="index.html" class="view-btn">Home</a>
-</div>
+  <main class="error-wrap">
+    <h1 class="error-code">404</h1>
+    <h2 class="error-title">Page not found</h2>
+    <p class="error-text">
+      The page you tried to open does not exist, may have been moved, or the link is broken.
+    </p>
 
+    <div class="error-actions">
+      <a href="/" class="error-btn primary">Go Home</a>
+      <a href="javascript:history.back()" class="error-btn secondary">Go Back</a>
+    </div>
+
+    <div class="small-note" id="pathDisplay"></div>
+  </main>
+
+  <script>
+    const pathDisplay = document.getElementById("pathDisplay");
+    pathDisplay.textContent = window.location.pathname;
+
+    const canvas = document.getElementById("particle-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    const particleCount = 70;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createParticles() {
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2.2 + 0.6,
+          speedX: (Math.random() - 0.5) * 0.45,
+          speedY: (Math.random() - 0.5) * 0.45,
+          alpha: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 55, 55, ${p.alpha})`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = "rgba(255, 55, 55, 0.35)";
+        ctx.fill();
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+      }
+
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 110) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255, 55, 55, ${0.12 - distance / 1000})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    resizeCanvas();
+    createParticles();
+    drawParticles();
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createParticles();
+    });
+  </script>
 </body>
 </html>
