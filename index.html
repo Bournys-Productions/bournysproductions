@@ -258,21 +258,6 @@
     }
   </style>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZV8J9CVQQQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-
-    gtag('consent', 'default', {
-      'analytics_storage': 'denied'
-    });
-
-    gtag('js', new Date());
-    gtag('config', 'G-ZV8J9CVQQQ');
-  </script>
-</head>
-
 <body>
   <canvas id="particle-canvas"></canvas>
 
@@ -343,54 +328,22 @@
     </section>
   </main>
 
-  <!-- Cookie Banner -->
-  <div id="cookie-banner">
-    <div class="cookie-inner">
-      <div class="cookie-text">
-        We use analytics cookies to understand how people use the site and improve it.
-        You can accept or decline. Read more in our
-        <a href="/privacy/">Privacy Policy</a>.
-      </div>
+<script src="/js/cookies.js"></script>
+<script src="/js/main.js"></script>
 
-      <div class="cookie-actions">
-        <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
-      
-        <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
-      </div>
+<div id="cookie-banner">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      We use analytics cookies to understand how people use the site and improve it.
+      You can accept or decline. Read more in our
+      <a href="/privacy/">Privacy Policy</a>.
+    </div>
+
+    <div class="cookie-actions">
+      <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
+      <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
     </div>
   </div>
-
-  <script>
-    function acceptCookies() {
-      gtag('consent', 'update', {
-        'analytics_storage': 'granted'
-      });
-      localStorage.setItem('cookieChoice', 'accepted');
-      document.getElementById('cookie-banner').style.display = 'none';
-    }
-
-    function declineCookies() {
-      localStorage.setItem('cookieChoice', 'declined');
-      document.getElementById('cookie-banner').style.display = 'none';
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const choice = localStorage.getItem('cookieChoice');
-      const banner = document.getElementById('cookie-banner');
-
-      if (choice === 'accepted') {
-        gtag('consent', 'update', {
-          'analytics_storage': 'granted'
-        });
-        banner.style.display = 'none';
-      } else if (choice === 'declined') {
-        banner.style.display = 'none';
-      } else {
-        banner.style.display = 'block';
-      }
-    });
-  </script>
-
-  <script src="/js/main.js"></script>
+</div>
 </body>
 </html>
