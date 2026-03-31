@@ -8,9 +8,7 @@ function acceptCookies() {
   localStorage.setItem('cookieChoice', 'accepted');
 
   const banner = document.getElementById('cookie-banner');
-  if (banner) {
-    banner.style.display = 'none';
-  }
+  if (banner) banner.style.display = 'none';
 }
 
 function declineCookies() {
@@ -23,9 +21,7 @@ function declineCookies() {
   localStorage.setItem('cookieChoice', 'declined');
 
   const banner = document.getElementById('cookie-banner');
-  if (banner) {
-    banner.style.display = 'none';
-  }
+  if (banner) banner.style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -42,11 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     banner.style.display = 'none';
   } else if (choice === 'declined') {
-    if (typeof gtag === 'function') {
-      gtag('consent', 'update', {
-        analytics_storage: 'denied'
-      });
-    }
     banner.style.display = 'none';
   } else {
     banner.style.display = 'block';
