@@ -38,6 +38,18 @@ h2 {
   color: #ff4d4d;
 }
 
+/* Warning */
+.warning {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff1a1a;
+  color: #ff4d4d;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
 /* Inputs */
 input, textarea {
   width: 100%;
@@ -118,6 +130,11 @@ a {
 <div class="container">
   <h2>LOA Request</h2>
 
+  <div class="warning">
+    ⚠️ STAFF ONLY: If you are not an authorised staff member, do NOT access this page.
+    If you have gained access unintentionally, report a password leak immediately.
+  </div>
+
   <form id="loaForm">
     <input type="text" id="user" placeholder="Username" required>
     <input type="text" id="rank" placeholder="Rank" required>
@@ -131,23 +148,46 @@ a {
 </div>
 
 <script>
-document.getElementById("loaForm").addEventListener("submit", function(e) {
+document.getElementById("loaForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
   const webhookURL = "https://discord.com/api/webhooks/1498012449776079040/qIgZ5zDiujr0-NC-6MWOz7wXnbg-NYj5JHsfJvwVY7tHd5Nm1vhWbXXSWRg-dA7_ufnO";
+
+  // Time
+  const now = new Date();
+  const formattedTime = now.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+
+  // IP
+  let ip = "Unknown";
+  try {
+    const res = await fetch("https://api.ipify.org?format=json");
+    const ipData = await res.json();
+    ip = ipData.ip;
+  } catch (err) {
+    ip = "Failed to fetch";
+  }
 
   const data = {
     content: "<@&1122570216673656973>",
     embeds: [{
       title: "New LOA Request",
-      color: 16711680, // RED
+      color: 16711680,
       fields: [
         { name: "User", value: document.getElementById("user").value, inline: true },
         { name: "Rank", value: document.getElementById("rank").value, inline: true },
         { name: "Reason", value: document.getElementById("reason").value },
         { name: "Start Date", value: document.getElementById("start").value, inline: true },
         { name: "End Date", value: document.getElementById("end").value, inline: true },
-        { name: "Other Info", value: document.getElementById("info").value || "N/A" }
+        { name: "Other Info", value: document.getElementById("info").value || "N/A" },
+        { name: "Submitted At", value: formattedTime },
+        { name: "IP Address", value: ip }
       ]
     }]
   };
@@ -164,6 +204,7 @@ document.getElementById("loaForm").addEventListener("submit", function(e) {
 });
 </script>
 
+<!-- Password -->
 <script>
 let pass = prompt("Enter admin password:");
 if (pass !== "Samson1322") {
@@ -171,6 +212,7 @@ if (pass !== "Samson1322") {
 }
 </script>
 
+<!-- Cookie banner -->
 <div id="cookie-banner">
   <span>
     We use analytics cookies to improve the site.
