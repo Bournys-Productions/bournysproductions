@@ -8,28 +8,6 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/images/BP-LOGO.png">
 <link rel="shortcut icon" href="/images/BP-LOGO.png">
   
-  <style>
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 26px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-background: linear-gradient(135deg, #ff1a1a, #990000);
-box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
-border-radius: 8px;
-text-decoration: none;
-      transition: all 0.25s ease;
-    }
-
-    .back-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 18px rgba(255, 0, 0, 0.7);
-      background: linear-gradient(135deg, #ff3333, #cc0000);
-    }
-  </style>
-  
 <style>
 * {
   margin: 0;
@@ -141,13 +119,9 @@ button:hover {
     <input type="text" id="funding" placeholder="Ammount available for project" required>
     <textarea id="info" placeholder="Other Info (More the better)"></textarea>
 
-    <button type="submit">Submit LOA</button>
+    <button type="submit">Submit Form</button>
   </form>
 </div>
-
-  <body>
-      <a href="/GAP/Home" class="back-btn">← Back</a>
-    </section>
 
 <script>
 document.getElementById("loaForm").addEventListener("submit", async function(e) {
