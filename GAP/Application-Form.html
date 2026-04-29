@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOA Form</title>
+<title>GAP Application Form</title>
 
 <link rel="icon" type="image/png" sizes="32x32" href="/images/BP-LOGO.png">
 <link rel="shortcut icon" href="/images/BP-LOGO.png">
@@ -108,12 +108,13 @@ button:hover {
   <h2>LOA Request</h2>
 
   <div class="warning">
-    ⚠️ STAFF ONLY: Unauthorised access is forbidden. Report password leaks immediately.
+  Please Fill out one form per project. Application results may be sent via email or discord, please keep checking spam folders. Information submited will not be shared.
   </div>
 
   <form id="loaForm">
     <input type="text" id="Roblox Username" placeholder="Roblox Username" required>
     <input type="text" id="Discord Username" placeholder="Discord Username" required>
+        <input type="text" id="Email Address" placeholder="Email Address" required>
     <input type="text" id="Game / Project Name" placeholder="Game / Project Name" required>
     <input type="text" id="Overall Goals" placeholder="Overall Goals" required>
     <input type="text" id="Services Wanting" placeholder="Services Wanting" required>
@@ -154,11 +155,12 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
       title: "GAP Application",
       color: 16711680,
       fields: [
-        { name: "Discord User", value: document.getElementById("user").value, inline: true },
-        { name: "Roblox User", value: document.getElementById("rank").value, inline: true },
-        { name: "Game / Project Name", value: document.getElementById("reason").value },
-        { name: "Overall Goals", value: document.getElementById("start").value, inline: true },
-        { name: "Services Wanting", value: document.getElementById("end").value, inline: true },
+        { name: "Discord User", value: document.getElementById("user1").value, inline: true },
+        { name: "Roblox User", value: document.getElementById("User2").value, inline: true },
+         { name: "Email Address", value: document.getElementById("Email").value, inline: true },
+        { name: "Game / Project Name", value: document.getElementById("Name").value },
+        { name: "Overall Goals", value: document.getElementById("Goals").value, inline: true },
+        { name: "Services Wanting", value: document.getElementById("Services").value, inline: true },
         { name: "Other Info", value: document.getElementById("info").value || "N/A" },
         { name: "Submitted At", value: formattedTime },
         { name: "IP Address", value: ip }
