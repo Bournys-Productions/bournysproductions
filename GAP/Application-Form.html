@@ -108,16 +108,16 @@ button:hover {
   <h2>LOA Request</h2>
 
   <div class="warning">
-  Please Fill out one form per project. Application results may be sent via email or discord, please keep checking spam folders. Information submited will not be shared.
+    Please fill out one form per project. Information submitted will not be shared.
   </div>
 
   <form id="loaForm">
-    <input type="text" id="Roblox Username" placeholder="Roblox Username" required>
-    <input type="text" id="Discord Username" placeholder="Discord Username" required>
-        <input type="text" id="Email Address" placeholder="Email Address" required>
-    <input type="text" id="Game / Project Name" placeholder="Game / Project Name" required>
-    <input type="text" id="Overall Goals" placeholder="Overall Goals" required>
-    <input type="text" id="Services Wanting" placeholder="Services Wanting" required>
+    <input type="text" id="roblox" placeholder="Roblox Username" required>
+    <input type="text" id="discord" placeholder="Discord Username" required>
+    <input type="text" id="email" placeholder="Email Address" required>
+    <input type="text" id="project" placeholder="Game / Project Name" required>
+    <input type="text" id="goals" placeholder="Overall Goals" required>
+    <input type="text" id="services" placeholder="Services Wanting" required>
     <textarea id="info" placeholder="Other Info (More the better)"></textarea>
 
     <button type="submit">Submit LOA</button>
@@ -141,10 +141,11 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
   });
 
   let ip = "Unknown";
+
   try {
     const res = await fetch("https://api.ipify.org?format=json");
-    const dataIP = await res.json();
-    ip = dataIP.ip;
+    const data = await res.json();
+    ip = data.ip;
   } catch {
     ip = "Failed to fetch";
   }
@@ -155,12 +156,12 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
       title: "GAP Application",
       color: 16711680,
       fields: [
-        { name: "Discord User", value: document.getElementById("user1").value, inline: true },
-        { name: "Roblox User", value: document.getElementById("User2").value, inline: true },
-         { name: "Email Address", value: document.getElementById("Email").value, inline: true },
-        { name: "Game / Project Name", value: document.getElementById("Name").value },
-        { name: "Overall Goals", value: document.getElementById("Goals").value, inline: true },
-        { name: "Services Wanting", value: document.getElementById("Services").value, inline: true },
+        { name: "Roblox Username", value: document.getElementById("roblox").value, inline: true },
+        { name: "Discord Username", value: document.getElementById("discord").value, inline: true },
+        { name: "Email Address", value: document.getElementById("email").value, inline: true },
+        { name: "Game / Project Name", value: document.getElementById("project").value },
+        { name: "Overall Goals", value: document.getElementById("goals").value, inline: true },
+        { name: "Services Wanting", value: document.getElementById("services").value, inline: true },
         { name: "Other Info", value: document.getElementById("info").value || "N/A" },
         { name: "Submitted At", value: formattedTime },
         { name: "IP Address", value: ip }
@@ -168,13 +169,19 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
     }]
   };
 
-  fetch(webhookURL, {
+  const response = await fetch(webhookURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
 
-  alert("Form submitted successfully.");
+  if (response.ok) {
+    alert("Form submitted successfully.");
+    document.getElementById("loaForm").reset();
+  } else {
+    alert("Failed to submit form. Check webhook.");
+    console.log(await response.text());
+  }
 });
 </script>
 
