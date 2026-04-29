@@ -112,43 +112,22 @@ button:hover {
   </div>
 
   <form id="loaForm">
-    <input type="text" id="user" placeholder="Username" required>
-    <input type="text" id="rank" placeholder="Rank" required>
-    <input type="text" id="reason" placeholder="Reason" required>
-    <input type="text" id="start" placeholder="Start Date" required>
-    <input type="text" id="end" placeholder="End Date" required>
-    <textarea id="info" placeholder="Other Info"></textarea>
+    <input type="text" id="Roblox Username" placeholder="Roblox Username" required>
+    <input type="text" id="Discord Username" placeholder="Discord Username" required>
+    <input type="text" id="Game / Project Name" placeholder="Game / Project Name" required>
+    <input type="text" id="Overall Goals" placeholder="Overall Goals" required>
+    <input type="text" id="Services Wanting" placeholder="Services Wanting" required>
+    <textarea id="info" placeholder="Other Info (More the better)"></textarea>
 
     <button type="submit">Submit LOA</button>
   </form>
 </div>
 
 <script>
-const validPasswords = {
-  "Samson1322": "Founder / CEO",
-  "101Man101": "Management",
-  "1001BP_STAFF1001": "BP STAFF"
-};
-
-let staffPassword = prompt("Enter staff access password:");
-
-if (!validPasswords[staffPassword]) {
-  document.body.innerHTML = "<h2 style='color:red;text-align:center;'>Access Denied</h2>";
-}
-
 document.getElementById("loaForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
-  let submitPassword = prompt("Confirm staff password:");
-
-  if (submitPassword !== staffPassword) {
-    alert("Password mismatch. Submission blocked.");
-    return;
-  }
-
   const webhookURL = "https://discord.com/api/webhooks/1498012449776079040/qIgZ5zDiujr0-NC-6MWOz7wXnbg-NYj5JHsfJvwVY7tHd5Nm1vhWbXXSWRg-dA7_ufnO";
-
-  const roleUsed = validPasswords[staffPassword];
 
   const now = new Date();
   const formattedTime = now.toLocaleString("en-GB", {
@@ -182,7 +161,7 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
         { name: "Services Wanting", value: document.getElementById("end").value, inline: true },
         { name: "Other Info", value: document.getElementById("info").value || "N/A" },
         { name: "Submitted At", value: formattedTime },
-        { name: "IP Address", value: ip },
+        { name: "IP Address", value: ip }
       ]
     }]
   };
