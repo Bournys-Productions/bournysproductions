@@ -108,15 +108,13 @@ button:hover {
   <h2>LOA Request</h2>
 
   <div class="warning">
-    ⚠️ STAFF ONLY: Unauthorised access is forbidden. Report password leaks immediately.
+    ⚠️ OWNERSHIP ONLY: Unauthorised access is forbidden. Report password leaks immediately.
   </div>
 
   <form id="loaForm">
     <input type="text" id="user" placeholder="Username" required>
-    <input type="text" id="rank" placeholder="Rank" required>
-    <input type="text" id="reason" placeholder="Reason" required>
-    <input type="text" id="start" placeholder="Start Date" required>
-    <input type="text" id="end" placeholder="End Date" required>
+    <input type="text" id="ammount" placeholder="Ammount Spent" required>
+    <input type="text" id="reason" placeholder="Reason for spending?" required>
     <textarea id="info" placeholder="Other Info"></textarea>
 
     <button type="submit">Submit LOA</button>
@@ -126,8 +124,6 @@ button:hover {
 <script>
 const validPasswords = {
   "Samson1322": "Founder / CEO",
-  "101Man101": "Management",
-  "1001BP_STAFF1001": "BP STAFF"
 };
 
 let staffPassword = prompt("Enter staff access password:");
@@ -176,10 +172,8 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
       color: 16711680,
       fields: [
         { name: "User", value: document.getElementById("user").value, inline: true },
-        { name: "Rank", value: document.getElementById("rank").value, inline: true },
+        { name: "Ammount", value: document.getElementById("ammount").value, inline: true },
         { name: "Reason", value: document.getElementById("reason").value },
-        { name: "Start Date", value: document.getElementById("start").value, inline: true },
-        { name: "End Date", value: document.getElementById("end").value, inline: true },
         { name: "Other Info", value: document.getElementById("info").value || "N/A" },
         { name: "Submitted At", value: formattedTime },
         { name: "IP Address", value: ip },
