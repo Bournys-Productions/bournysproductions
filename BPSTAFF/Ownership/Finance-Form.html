@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOA Form</title>
+<title>Finance Form</title>
 
 <link rel="icon" type="image/png" sizes="32x32" href="/images/BP-LOGO.png">
 <link rel="shortcut icon" href="/images/BP-LOGO.png">
@@ -105,7 +105,7 @@ button:hover {
 <body>
 
 <div class="container">
-  <h2>LOA Request</h2>
+  <h2>Finace Form</h2>
 
   <div class="warning">
     ⚠️ OWNERSHIP ONLY: Unauthorised access is forbidden. Report password leaks immediately.
@@ -117,7 +117,7 @@ button:hover {
     <input type="text" id="reason" placeholder="Reason for spending?" required>
     <textarea id="info" placeholder="Other Info"></textarea>
 
-    <button type="submit">Submit LOA</button>
+    <button type="submit">Submit Form</button>
   </form>
 </div>
 
@@ -142,7 +142,7 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
     return;
   }
 
-  const webhookURL = "https://discord.com/api/webhooks/1498012449776079040/qIgZ5zDiujr0-NC-6MWOz7wXnbg-NYj5JHsfJvwVY7tHd5Nm1vhWbXXSWRg-dA7_ufnO";
+  const webhookURL = "https://discord.com/api/webhooks/1500092941451001876/JyBybULAGI6gXmbQJV1uvBrA_NLYzHeusM3ibGgZRctdj0fXAnjWVD94dRuZlf4q4BZU";
 
   const roleUsed = validPasswords[staffPassword];
 
@@ -168,7 +168,7 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
   const data = {
     content: "<@&1413807002240679971>",
     embeds: [{
-      title: "New LOA Request",
+      title: "New Finance Form",
       color: 16711680,
       fields: [
         { name: "User", value: document.getElementById("user").value, inline: true },
@@ -188,7 +188,7 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
     body: JSON.stringify(data)
   });
 
-  alert("LOA submitted successfully.");
+  alert("Form submitted successfully.");
 });
 </script>
 
