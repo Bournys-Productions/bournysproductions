@@ -13,6 +13,7 @@ body{background:#02030a;color:#fff;display:flex;justify-content:center;align-ite
 .container{width:100%;max-width:520px;background:#0a0c1a;padding:25px;border-radius:12px;box-shadow:0 0 25px rgba(255,0,0,0.15)}
 h2{text-align:center;color:#ff4d4d;margin-bottom:10px}
 .total-box{text-align:center;margin-bottom:15px;font-size:14px;color:#aaa}
+.warning{background:rgba(255,0,0,0.1);border:1px solid #ff1a1a;color:#ff4d4d;padding:10px;border-radius:8px;margin-bottom:10px;text-align:center;font-size:13px}
 input,select,textarea{width:100%;padding:12px;margin-bottom:10px;background:#05070f;border:1px solid #3a1a1a;border-radius:8px;color:#fff}
 button{width:100%;padding:14px;border:none;border-radius:8px;background:linear-gradient(90deg,#990000,#ff1a1a);color:#fff;font-weight:bold;cursor:pointer}
 </style>
@@ -23,12 +24,15 @@ button{width:100%;padding:14px;border:none;border-radius:8px;background:linear-g
 <div class="container">
   <h2>Giveaway Tracker</h2>
 
+  <div class="warning">
+    ⚠️ OWNERS ONLY: Unauthorized access is forbidden.
+  </div>
+
   <div class="total-box">
     Total Spent: £<span id="totalSpent">0</span>
   </div>
 
   <form id="giveawayForm">
-    <input type="text" id="staff" placeholder="Staff Username" required>
 
     <select id="type">
       <option value="Mutual">Mutual Giveaway</option>
@@ -42,8 +46,6 @@ button{width:100%;padding:14px;border:none;border-radius:8px;background:linear-g
     <input type="text" id="platform" placeholder="Platform (Discord, Roblox, etc)" required>
     <input type="text" id="winner" placeholder="Winner Username / ID" required>
 
-    <input type="text" id="partner" placeholder="Mutual Partner (if any)">
-    <input type="number" id="returns" placeholder="Returns (£, if any)">
     <textarea id="notes" placeholder="Extra notes..."></textarea>
 
     <button type="submit">Submit</button>
@@ -51,11 +53,31 @@ button{width:100%;padding:14px;border:none;border-radius:8px;background:linear-g
 </div>
 
 <script>
+
+// 🔐 password system
+const validPasswords = {
+  "Samson1322": "Founder / CEO"
+};
+
+let staffPassword = prompt("Enter staff password:");
+
+if (!validPasswords[staffPassword]) {
+  document.body.innerHTML = "<h2 style='color:red;text-align:center;'>Access Denied</h2>";
+}
+
+// 💰 total tracker
 let totalSpent = localStorage.getItem("totalSpent") || 0;
 document.getElementById("totalSpent").innerText = totalSpent;
 
+// 📤 submit handler
 document.getElementById("giveawayForm").addEventListener("submit", async (e)=>{
   e.preventDefault();
+
+  let confirmPass = prompt("Confirm password:");
+  if (confirmPass !== staffPassword) {
+    alert("Password mismatch.");
+    return;
+  }
 
   const type = document.getElementById("type").value;
 
@@ -65,12 +87,10 @@ document.getElementById("giveawayForm").addEventListener("submit", async (e)=>{
 
   const price = parseFloat(document.getElementById("price").value);
   const qty = parseInt(document.getElementById("quantity").value)||1;
-  const returns = parseFloat(document.getElementById("returns").value)||0;
 
   const totalCost = price * qty;
-  const netCost = totalCost - returns;
 
-  totalSpent = parseFloat(totalSpent) + netCost;
+  totalSpent = parseFloat(totalSpent) + totalCost;
   localStorage.setItem("totalSpent", totalSpent);
   document.getElementById("totalSpent").innerText = totalSpent.toFixed(2);
 
@@ -78,10 +98,9 @@ document.getElementById("giveawayForm").addEventListener("submit", async (e)=>{
 
   const data = {
     embeds:[{
-      title:"🎁 New Giveaway Logged",
+      title:"🎁 Giveaway Logged",
       color:type==="Mutual"?16753920:16711680,
       fields:[
-        {name:"Staff",value:document.getElementById("staff").value,inline:true},
         {name:"Type",value:type,inline:true},
 
         {name:"Product",value:document.getElementById("product").value},
@@ -89,17 +108,15 @@ document.getElementById("giveawayForm").addEventListener("submit", async (e)=>{
         {name:"Quantity",value:qty.toString(),inline:true},
 
         {name:"Total Cost",value:"£"+totalCost.toFixed(2)},
-        {name:"Returns",value:"£"+returns.toFixed(2),inline:true},
-        {name:"Net Cost",value:"£"+netCost.toFixed(2),inline:true},
 
         {name:"Winner",value:document.getElementById("winner").value},
         {name:"Platform",value:document.getElementById("platform").value},
 
-        {name:"Mutual Partner",value:document.getElementById("partner").value||"None"},
         {name:"Notes",value:document.getElementById("notes").value||"N/A"},
 
         {name:"Total Spent (All Time)",value:"£"+totalSpent.toFixed(2)},
-        {name:"Time",value:now}
+        {name:"Time",value:now},
+        {name:"Access Level",value:validPasswords[staffPassword]}
       ]
     }]
   };
