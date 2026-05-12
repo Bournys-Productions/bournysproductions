@@ -5,211 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us | Bournys Productions</title>
   <link rel="stylesheet" href="/css/style.css" />
-
-  <style>
-    .page {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
-
-    .hero-simple {
-      text-align: center;
-      padding: 120px 20px 24px;
-    }
-
-    .hero-simple h2 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      color: #fff;
-      margin: 0 0 12px;
-    }
-
-    .hero-simple p {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.75);
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    .back-wrap {
-      display: flex;
-      justify-content: center;
-      margin: 18px 20px 50px;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 26px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, #ff1a1a, #990000);
-      border-radius: 8px;
-      text-decoration: none;
-      box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-      width: auto;
-      min-width: 120px;
-    }
-
-    .back-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 18px rgba(255, 0, 0, 0.7);
-      background: linear-gradient(135deg, #ff3333, #cc0000);
-    }
-
-    .policy-wrapper {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-      box-sizing: border-box;
-    }
-
-    .policy-section {
-      margin-bottom: 46px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin: 0 0 26px;
-    }
-
-    .section-title h3 {
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      font-weight: 800;
-      color: #fff;
-      margin: 0;
-    }
-
-    .info-block {
-      background: rgba(255, 255, 255, 0.03);
-      border-left: 4px solid #ff2b2b;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-sizing: border-box;
-    }
-
-    .info-block h4 {
-      margin: 0 0 8px;
-      font-size: 1.15rem;
-      color: #fff;
-    }
-
-    .info-block p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.75);
-      line-height: 1.65;
-      white-space: pre-line;
-    }
-
-    @media (max-width: 640px) {
-      .hero-simple {
-        padding: 105px 16px 20px;
-      }
-
-      .back-wrap {
-        margin: 14px 16px 40px;
-      }
-
-      .policy-wrapper {
-        padding: 0 16px 60px;
-      }
-
-      .info-block {
-        padding: 18px 16px;
-      }
-
-      .back-btn {
-        width: auto;
-        min-width: 120px;
-      }
-    }
-  </style>
 </head>
-
 <body>
   <canvas id="particle-canvas"></canvas>
-
   <header class="topbar">
-    <button class="menu-btn" id="menuToggle" aria-label="Open menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <button class="menu-btn" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
     <h1 class="topbar-title">BOURNYS PRODUCTIONS</h1>
   </header>
 
   <nav class="sidebar" id="sidebar">
     <a href="/">Home</a>
+    <a href="/SRP/">UK:RP SRP</a>
+    <a href="/BP-Asset-Hub/Home">Asset Hub</a>
+    <a href="/policies/home">Policies</a>
   </nav>
 
-  <main class="page">
+  <main class="page page-shell">
     <section class="hero-simple">
       <h2>Contact Us</h2>
-      <p>Contact the Bournys Productions team.</p>
+      <p>Get help, ask questions, or connect with the team through our official channels.</p>
     </section>
 
-    <div class="back-wrap">
-      <a href="/" class="back-btn">← Back</a>
-    </div>
+    <div class="back-wrap"><a href="/" class="back-btn">← Back Home</a></div>
 
-    <div class="policy-wrapper">
-      <section class="policy-section">
-        <div class="section-title">
-          <h3>Emails</h3>
-        </div>
-
-         <div class="info-block">
-        <p>General Enqiries:
-          
-          enquiries@bournysproductions.com
-          
-          
-          General Support:
-          
-          support@bournysproductions.com
-          
-          
-          Anything else that we may assist you with we recommend opening a support ticket within our communications server where our staff team may assist you further. 
-        </p>
-          </div>
-      </section>
-    </div>
-    
-        <section class="product-grid">
-      <div class="product-card">
-        <div class="product-content">
-          <h4>Communications Server</h4>
-          <p>Open a ticket in our communications server!</p>
-          <a href="https://discord.gg/gVQMjcGNEs" target="_blank" rel="noopener noreferrer" class="view-btn">Get Support</a>
-        </div>
-      </div>
+    <section class="info-stack">
+      <article class="info-block">
+        <h4>General Enquiries</h4>
+        <p>enquiries@bournysproductions.com</p>
+      </article>
+      <article class="info-block">
+        <h4>General Support</h4>
+        <p>support@bournysproductions.com</p>
+      </article>
+      <article class="info-block">
+        <h4>Fastest Response</h4>
+        <p>Open a support ticket in our communications server for direct staff assistance.</p>
+      </article>
     </section>
-    
+
+    <section class="product-grid content-grid">
+      <article class="product-card"><div class="product-content"><h4>Communications Server</h4><p>Open a support ticket and get direct help from staff.</p><a href="https://discord.gg/gVQMjcGNEs" target="_blank" rel="noopener noreferrer" class="view-btn">Open Discord</a></div></article>
+      <article class="product-card"><div class="product-content"><h4>Policies</h4><p>Review privacy and platform rules before contacting support.</p><a href="/policies/home" class="view-btn">View Policies</a></div></article>
+      <article class="product-card"><div class="product-content"><h4>SRP Information</h4><p>Need gameplay help? Browse SRP information and quick links.</p><a href="/SRP/" class="view-btn">Open SRP Hub</a></div></article>
+    </section>
   </main>
 
-<div id="cookie-banner">
-  <div class="cookie-inner">
-    <div class="cookie-text">
-      We use analytics cookies to understand how people use the site and improve it.
-      You can accept or decline. Read more in our
-      <a href="/policies/privacy-policy">Privacy Policy</a>.
-    </div>
-
-    <div class="cookie-actions">
-      <button class="cookie-btn accept" onclick="acceptCookies()">Accept</button>
-      <button class="cookie-btn decline" onclick="declineCookies()">Decline</button>
-    </div>
-  </div>
-</div>
-
-<script src="/js/cookies.js"></script>
-<script src="/js/main.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>
