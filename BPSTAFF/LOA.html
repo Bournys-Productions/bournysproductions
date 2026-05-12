@@ -3,124 +3,322 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOA Form</title>
+<title>Staff LOA Portal</title>
 
 <link rel="icon" type="image/png" sizes="32x32" href="/images/BP-LOGO.png">
 <link rel="shortcut icon" href="/images/BP-LOGO.png">
 
 <style>
+:root {
+  --bg-main: #050505;
+  --bg-elevated: #121212;
+  --bg-panel: #1b1b1b;
+  --border-soft: #3d3d3d;
+  --border-strong: #8b0000;
+  --text-main: #f3f3f3;
+  --text-muted: #bebebe;
+  --accent: #d21919;
+  --accent-strong: #ff1f1f;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
-  background: #02030a;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  padding: 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(210, 25, 25, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 5%, rgba(255, 20, 20, 0.1), transparent 28%),
+    linear-gradient(165deg, #000000, #101010 55%, #171717);
+  padding: 24px;
 }
 
-.container {
+.portal {
+  max-width: 950px;
+  margin: 0 auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: linear-gradient(180deg, #111111, #141414 40%, #101010);
+}
+
+.header {
+  padding: 28px;
+  border-bottom: 1px solid #2a2a2a;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  letter-spacing: 0.4px;
+}
+
+.header p {
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.badge {
+  align-self: start;
+  background: rgba(210, 25, 25, 0.15);
+  border: 1px solid var(--border-strong);
+  color: #ffd3d3;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.82rem;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+}
+
+.form-wrap {
+  padding: 28px;
+}
+
+.alert {
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--accent-strong);
+  border-radius: 10px;
+  background: #1e1111;
+  color: #ffc0c0;
+  font-size: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  color: #dedede;
+  font-size: 0.92rem;
+}
+
+input,
+textarea,
+select {
   width: 100%;
-  max-width: 500px;
-  background: #0a0c1a;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
+  border-radius: 10px;
+  border: 1px solid #373737;
+  background: var(--bg-panel);
+  color: var(--text-main);
+  font-size: 0.98rem;
+  padding: 12px 13px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #ff4d4d;
+textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
-.warning {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid #ff1a1a;
-  color: #ff4d4d;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  font-size: 13px;
-  text-align: center;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  background: #05070f;
-  border: 1px solid #3a1a1a;
-  border-radius: 8px;
-  color: #fff;
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
-  font-size: 16px;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(210, 25, 25, 0.2);
 }
 
-input:focus, textarea:focus {
-  border-color: #ff4d4d;
-  box-shadow: 0 0 8px rgba(255,77,77,0.4);
+.actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 button {
-  width: 100%;
-  padding: 14px;
   border: none;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #990000, #ff1a1a);
-  color: #fff;
-  font-weight: bold;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
+}
+
+button[type="submit"] {
+  flex: 1;
+  color: white;
+  background: linear-gradient(90deg, #8f0e0e, #e31f1f);
+}
+
+button[type="reset"] {
+  background: #262626;
+  color: #e6e6e6;
+  border: 1px solid #3a3a3a;
 }
 
 button:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.6);
+  transform: translateY(-1px);
 }
 
-@media (max-width: 600px) {
-  .container {
+.side-panel {
+  border-left: 1px solid #2a2a2a;
+  background: linear-gradient(180deg, #121212, #0f0f0f);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.panel-card {
+  border: 1px solid #2d2d2d;
+  border-radius: 14px;
+  padding: 16px;
+  background: #151515;
+}
+
+.panel-card h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #ffe2e2;
+}
+
+.panel-card p,
+.panel-card li {
+  color: #cecece;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.panel-card ul {
+  margin-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.status {
+  font-size: 0.85rem;
+  color: #f8a7a7;
+}
+
+@media (max-width: 900px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+    border-left: none;
+    border-top: 1px solid #2a2a2a;
+  }
+}
+
+@media (max-width: 620px) {
+  body {
+    padding: 12px;
+  }
+
+  .header,
+  .form-wrap,
+  .side-panel {
     padding: 18px;
   }
 
-  h2 {
-    font-size: 20px;
-  }
-
-  button {
-    padding: 12px;
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
 </head>
 
 <body>
+<div class="portal">
+  <header class="header">
+    <div>
+      <h1>Staff Leave of Absence Portal</h1>
+      <p>Submit LOA requests with complete staffing details for management review.</p>
+    </div>
+    <span class="badge">Restricted Access • Staff Only</span>
+  </header>
 
-<div class="container">
-  <h2>LOA Request</h2>
+  <section class="main">
+    <div class="form-wrap">
+      <div class="alert">⚠️ Unauthorised access is forbidden. If credentials are exposed, report immediately.</div>
 
-  <div class="warning">
-    ⚠️ STAFF ONLY: Unauthorised access is forbidden. Report password leaks immediately.
-  </div>
+      <form id="loaForm">
+        <div class="grid">
+          <div class="field">
+            <label for="user">Username</label>
+            <input type="text" id="user" placeholder="Enter your username" required>
+          </div>
 
-  <form id="loaForm">
-    <input type="text" id="user" placeholder="Username" required>
-    <input type="text" id="rank" placeholder="Rank" required>
-    <input type="text" id="reason" placeholder="Reason" required>
-    <input type="text" id="start" placeholder="Start Date" required>
-    <input type="text" id="end" placeholder="End Date" required>
-    <textarea id="info" placeholder="Other Info"></textarea>
+          <div class="field">
+            <label for="rank">Rank / Department</label>
+            <input type="text" id="rank" placeholder="e.g. Moderator" required>
+          </div>
 
-    <button type="submit">Submit LOA</button>
-  </form>
+          <div class="field full">
+            <label for="reason">Reason for LOA</label>
+            <input type="text" id="reason" placeholder="Short reason summary" required>
+          </div>
+
+          <div class="field">
+            <label for="start">Start Date</label>
+            <input type="date" id="start" required>
+          </div>
+
+          <div class="field">
+            <label for="end">End Date</label>
+            <input type="date" id="end" required>
+          </div>
+
+          <div class="field full">
+            <label for="info">Additional Information</label>
+            <textarea id="info" placeholder="Optional context, handover notes, availability, etc."></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Submit LOA Request</button>
+          <button type="reset">Clear</button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="side-panel">
+      <div class="panel-card">
+        <h3>Submission Checklist</h3>
+        <ul>
+          <li>Provide a clear and valid LOA reason.</li>
+          <li>Ensure start and end dates are accurate.</li>
+          <li>Add any handover or availability notes.</li>
+        </ul>
+      </div>
+
+      <div class="panel-card">
+        <h3>Staff Notice</h3>
+        <p>Every submission is logged with timestamp, role key, and IP address for moderation and security auditing.</p>
+      </div>
+
+      <div class="panel-card">
+        <h3>Portal Status</h3>
+        <p id="portalStatus" class="status">Awaiting authentication…</p>
+      </div>
+    </aside>
+  </section>
 </div>
 
 <script>
@@ -130,14 +328,25 @@ const validPasswords = {
   "1001BP_STAFF1001": "BP STAFF"
 };
 
+const portalStatus = document.getElementById("portalStatus");
 let staffPassword = prompt("Enter staff access password:");
 
 if (!validPasswords[staffPassword]) {
-  document.body.innerHTML = "<h2 style='color:red;text-align:center;'>Access Denied</h2>";
+  document.body.innerHTML = "<h2 style='color:#ff4d4d;text-align:center;padding-top:15vh;'>Access Denied</h2>";
+} else {
+  portalStatus.textContent = `Authenticated as ${validPasswords[staffPassword]}.`;
 }
 
 document.getElementById("loaForm").addEventListener("submit", async function(e) {
   e.preventDefault();
+
+  const startDate = document.getElementById("start").value;
+  const endDate = document.getElementById("end").value;
+
+  if (startDate && endDate && endDate < startDate) {
+    alert("End date cannot be before start date.");
+    return;
+  }
 
   let submitPassword = prompt("Confirm staff password:");
 
@@ -178,8 +387,8 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
         { name: "User", value: document.getElementById("user").value, inline: true },
         { name: "Rank", value: document.getElementById("rank").value, inline: true },
         { name: "Reason", value: document.getElementById("reason").value },
-        { name: "Start Date", value: document.getElementById("start").value, inline: true },
-        { name: "End Date", value: document.getElementById("end").value, inline: true },
+        { name: "Start Date", value: startDate, inline: true },
+        { name: "End Date", value: endDate, inline: true },
         { name: "Other Info", value: document.getElementById("info").value || "N/A" },
         { name: "Submitted At", value: formattedTime },
         { name: "IP Address", value: ip },
@@ -195,6 +404,7 @@ document.getElementById("loaForm").addEventListener("submit", async function(e) 
   });
 
   alert("LOA submitted successfully.");
+  document.getElementById("loaForm").reset();
 });
 </script>
 
