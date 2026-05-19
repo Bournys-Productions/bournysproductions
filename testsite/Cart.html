@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <style>
+    body { font-family: Arial; max-width: 1000px; margin: 0 auto; padding: 20px; }
+    .cart-item { padding: 10px; border-bottom: 1px solid #eee; }
+    .total { font-weight: bold; font-size: 1.2em; margin: 20px 0; }
+    .paypal-btn { margin-top: 20px; }
+    a { color: #008cba; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>Your Shopping Cart</h1>
+  <div id="cart-items"></div>
+  <div class="total" id="cart-total">Total: £0.00</div>
+
+  <!-- PayPal Button (we'll set this up in a sec) -->
+  <div id="paypal-button-container" class="paypal-btn"></div>
+
+  <p><a href="product.html">Back to Shop</a></p>
+
+  <script>
+    // Show all cart items
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let cartItemsDiv = document.getElementById('cart-items');
+    let totalDiv = document.getElementById('cart-total');
+    let total = 0;
+
+    // If cart is empty
+    if (cart.length === 0) {
+      cartItemsDiv.innerHTML = 'Your cart is empty! 😊';
+    } else {
+      // List each item
+      cart.forEach(item => {
+        let itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.textContent = `${item.name} - £${item.price.toFixed(2)}`;
+        cartItemsDiv.appendChild(itemDiv);
+        total += item.price;
+      });
+    }
+
+    // Show total
+    totalDiv.textContent = `Total: £${total.toFixed(2)}`;
+
+    // PayPal Button Code (replace with your own later)
+    window.paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: total.toFixed(2) // Uses the cart total
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Payment successful! Thanks for your order, ' + details.payer.name.given_name);
+          // Clear cart after payment
+          localStorage.removeItem('cart');
+          // Send them back to shop
+          window.location.href = 'product.html';
+        });
+      }
+    }).render('#paypal-button-container');
+  </script>
+
+  <!-- Load PayPal's script -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+</body>
+</html>
